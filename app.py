@@ -5,7 +5,7 @@ import os
 from general_funcs import *
 from plot import *
 
-st.title("DailyNewsDriftCanada📰🍁📈📉")
+st.title("**DailyNewsDriftCanada📰🍁📈📉**")
 
 ### App Motivation Explained
 app_about = """
@@ -21,7 +21,7 @@ st.plotly_chart(updated_grand_plot)
 st.divider()
 
 ### See the headlines that contributed to the plot
-st.write("Interested in the headlines that contributed to today's data?")
+st.write("**Interested in the headlines that contributed to today's data?**")
 show_headlines = button("Show headlines", key = "show_headlines_button")
 if show_headlines:
 
@@ -41,7 +41,7 @@ if show_headlines:
 st.divider()
 
 ### How the app works
-st.write("Curious about how this app works?")
+st.write("**Curious about how this app works?**")
 show_explained = button("Explain", key = "show_explained_button")
 if show_explained:
     ### SA Explained
@@ -65,7 +65,8 @@ if show_explained:
 
 st.divider()
 
-eop_message = """Thanks for checking out DailyNewsDriftCanada. If you have any questions or feedback, feel free to email me at kmaurinjones@gmail.com
+eop_message = """
+Thanks for checking out DailyNewsDriftCanada. If you have any questions or feedback, feel free to email me at kmaurinjones@gmail.com
 """
 
 st.write(eop_message.strip())
