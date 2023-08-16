@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from transformers import pipeline
 from tqdm import tqdm
 classifier = pipeline("zero-shot-classification", model = "facebook/bart-large-mnli")
+print()
 from general_funcs import *
 
 ### scraping CBC ###
@@ -56,7 +57,7 @@ else:
 url = "https://globalnews.ca/canada/"
 
 response = requests.get(url)
-print(response.status_code)
+# print(response.status_code)
 if response.status_code == 200:
     soup = BeautifulSoup(response.content, "html.parser")
 
@@ -75,6 +76,8 @@ if response.status_code == 200:
                 global_headlines.append((text, href))
 else:
     global_headlines = None
+
+if 
 
 def sa_headlines(headlines_urls: list, labels: list, source: str = None):
     """
@@ -203,8 +206,12 @@ for source, headlines in sources_headlines:
 
 master_df = pd.DataFrame(master_results)
 
+data_dir = "data/"
+
 ### WRITING DAILY FULL DF TO CSV
-master_df.to_csv(f"../data/{get_today_iso()}_SA_full.csv", index = False)
+master_df.to_csv(f"{data_dir}{get_today_iso()}_SA_full.csv", index = False)
+
+print(f"Daily full file written to data/ directory")
 
 grouped_df = master_df.groupby(['date', 'source']).mean(numeric_only = True).reset_index()
 new_labs = []
@@ -221,4 +228,6 @@ for row in grouped_df.index:
 
 ### WRITING DAILY GROUPED DF TO CSV
 grouped_df['chosen_label'] = new_labs
-grouped_df.to_csv(f"../data/{get_today_iso()}_SA_grouped.csv", index = False)
+grouped_df.to_csv(f"{data_dir}{get_today_iso()}_SA_grouped.csv", index = False)
+
+print(f"Daily aggregated file written to data/ directory")
