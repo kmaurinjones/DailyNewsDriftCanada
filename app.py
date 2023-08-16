@@ -1,4 +1,5 @@
 import streamlit as st
+from streamlit_extras.stateful_button import button # for button that can maintain its clicked state
 import pandas as pd
 import os
 from general_funcs import *
@@ -8,7 +9,7 @@ st.title("DailyNewsDriftCanada📰🍁📈📉")
 
 ### App Motivation Explained
 app_about = """
-"DailyNewsDriftCanada was born out of a desire to navigate the often tumultuous waters of news media. In today's fast-paced world, headlines flood our screens, and discerning their overall sentiment can be overwhelming. The aim is to provide a clear, concise snapshot of the emotional undertones behind Canadian news outlets' headlines. By tracking and comparing these sentiments over time, we hope to foster a deeper understanding of the media landscape, enabling users to engage with news more thoughtfully and critically. DailyDriftCanada isn't just an app, it's a compass for the modern news consumer."
+"DailyNewsDriftCanada was born out of a desire to navigate the often tumultuous waters of news media. In today's fast-paced world, headlines flood our screens, and discerning their overall sentiment can be overwhelming. The aim is to provide a clear, concise snapshot of the emotional undertones behind Canadian news outlets' headlines. By tracking and comparing these sentiments over time, we hope to foster a deeper understanding of the media landscape, enabling users to engage with news more thoughtfully and critically. DailyNewsDriftCanada isn't just an app, it's a compass for the modern news consumer."
 """
 st.write("**What is DailyNewsDriftCanada?**")
 st.write(app_about)
@@ -19,9 +20,8 @@ st.plotly_chart(updated_grand_plot)
 
 ### See the headlines that contributed to the plot
 st.write("Interested in the headlines that contributed to today's sentiments?")
-if st.button("Show headlines"):
-#     st.session_state.button1_on = not st.session_state.button1_on
-# if st.session_state.button1_on:
+show_headlines = button("Show headlines", key = "show_headlines_button")
+if show_headlines:
 
     ### Loading and displaying today's dfs (grouped and full)
     directory_path = "data/"
@@ -40,9 +40,7 @@ if st.button("Show headlines"):
 
 ### How the app works
 st.write("Curious about how this app works?")
-if st.button('Explain'):
-#     st.session_state.button2_on = not st.session_state.button2_on
-# if st.session_state.button2_on:
+show_explained = button("Explain", key = "show_explained_button")
 
     ### SA Explained
     sa_defined = """
