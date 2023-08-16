@@ -54,9 +54,7 @@ if show_explained:
     ### Methods explained
     how_it_works = """
     Each of the news sources mentioned in the graph above posts several news headlines, which are all posted on specific webpages. The headlines from these webpages are collected through something called Web Scraping. Sentiment Analysis is then performed to quantify how 'negative', 'positive', and 'neutral' each headline is, and these sentiment valencies are then aggregated across each day's posts, which gives us the daily average sentiment valency. This is what is shown in the graph, above.
-
     'Compound' Score:
-
     This is what is actually shown in the graph, above. The score is not a value provided by the Sentiment Analysis model, directly, but instead of a value calculated using each of the positive, negative, and neutral scores. To calculate the compound sentiment score of a headline we subtract the 'negative' score from the 'positive' score, and then multiply the difference it by 1 minus the 'neutral' score of the headline. See the formula, below.
     """
     st.write("**How does it work?**")
