@@ -5,7 +5,7 @@ import os
 from general_funcs import *
 from plot import *
 
-st.title("**DailyNewsDriftCanada📰🍁📈📉**")
+st.title("**📰🍁 DailyNewsDriftCanada 📈📉**")
 
 ### App Motivation Explained
 app_about = """
