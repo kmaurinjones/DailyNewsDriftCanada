@@ -10,7 +10,7 @@ As has been theorized, emotional intensity and 'clickbait' are thought to be con
 
 ## How does it work?
 
-Every day, news headlines (text and URLs) are scraped from the respective webpages of https://www.cbc.ca/news, https://www.ctvnews.ca/canada, and https://globalnews.ca/canada/. Each headline is then put through a Sentiment Analysis Model (https://huggingface.co/facebook/bart-large-mnli), score how 'positive', 'negative', and 'neutral' each headline is. No further context is used for each headline, as the intent of this project is to evaluate the emotional representation of each headline, just as a person would when reading through the headlines on the webpage.
+Every day, news headlines (text and URLs) are scraped from the respective webpages of https://www.cbc.ca/news, https://www.ctvnews.ca/canada, and https://globalnews.ca/canada/. Each headline is then put through a Sentiment Analysis Model (https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment-latest), score how 'positive', 'negative', and 'neutral' each headline is. No further context is used for each headline, as the intent of this project is to evaluate the emotional representation of each headline, just as a person would when reading through the headlines on the webpage.
 
 Using the score for each label, a 'compound' score is then calculated, which takes into account all three labels. This achieves two things: 1) it creates one overall sentiment score for the headline that can be used more comparably in other tasks; and 2) it normalizes the score on a scale from [-1, 1]. This makes for a more visualizable data point on a plot - which is the end goal of the data collection, wrangling, and manipulation used in this project.
 

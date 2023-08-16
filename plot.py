@@ -37,7 +37,7 @@ full_df_10['date_str'] = full_df_10['date'].apply(lambda x: get_date_str(x))
 
 def show_grand_plot():
 
-    fig = px.line(grouped_df_10, x = 'date_str', y = 'chosen_label_val', color = 'source',
+    fig = px.line(grouped_df_10, x = 'date_str', y = 'compound', color = 'source',
             #   color_discrete_map = {"CBC": "#EC1D2D", "CTV": "#0046D4", "Global": "#231F20"},
               title = "Sentiment Valency over Time", markers = True)
 
