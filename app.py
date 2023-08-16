@@ -11,7 +11,7 @@ st.divider()
 
 ### App Motivation Explained
 app_about = """
-DailyNewsDriftCanada was born out of a desire to navigate the often tumultuous waters of news media. In today's fast-paced world, headlines flood our screens, and discerning their overall sentiment can be overwhelming. The aim is to provide a clear, concise snapshot of the emotional undertones behind Canadian news outlets' headlines. By tracking and comparing these sentiments over time, we hope to foster a deeper understanding of the media landscape, enabling users to engage with news more thoughtfully and critically. DailyNewsDriftCanada isn't just an app, it's a compass for the modern news consumer.
+DailyNewsDriftCanada is a tool designed to analyze the sentiment of news headlines from various Canadian media outlets. In an age where we're constantly bombarded with headlines, understanding their overall tone can be challenging. This application offers an objective overview of the emotional context behind these headlines. By monitoring and comparing these sentiments over a duration, the intent is to offer users insights into the evolving media environment, encouraging a more informed and discerning approach to news consumption. Essentially, DailyNewsDriftCanada serves as a guide to understanding the sentiment trends in Canadian news.
 """
 st.write("**What is DailyNewsDriftCanada?**")
 st.write(app_about.strip())
