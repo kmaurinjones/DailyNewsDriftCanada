@@ -20,6 +20,13 @@ st.write(app_about.strip())
 updated_grand_plot = show_grand_plot()
 st.plotly_chart(updated_grand_plot)
 
+### Chart Explanation
+chart_explained = """
+Sentiment valency, a scale between -1 and 1, measures the emotional tone of text. A score of -1 represents extreme negativity, while 1 indicates extreme positivity. Values closer to 0 signify neutrality. This scale helps quantify sentiments in language, which is useful in Natural Language Processing tasks like sentiment analysis, as used here on the headlines from each of the news sources.
+"""
+st.write("**Chart Explained:**")
+st.write(chart_explained.strip())
+
 st.divider()
 
 ### See the headlines that contributed to the plot
