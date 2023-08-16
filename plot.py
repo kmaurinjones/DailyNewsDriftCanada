@@ -8,7 +8,7 @@ def find_csv_files(directory_path):
     return [file for file in os.listdir(directory_path) if file.endswith('.csv')]
 
 # Example usage
-directory_path = '../data/'  # current directory
+directory_path = 'data/'  # current directory
 csv_files = find_csv_files(directory_path)
 most_recent_10_days = sorted(csv_files)[::-1][:20]
 
@@ -17,7 +17,7 @@ most_recent_10_days = sorted(csv_files)[::-1][:20]
 grouped_dfs = []
 full_dfs = []
 for fpath in most_recent_10_days:
-    df = pd.read_csv('../data/' + fpath)
+    df = pd.read_csv(directory_path + fpath)
 
     # grouped dfs
     if "grouped" in fpath:
