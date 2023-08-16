@@ -20,8 +20,8 @@ st.plotly_chart(updated_grand_plot)
 ### See the headlines that contributed to the plot
 st.write("Interested in the headlines that contributed to today's sentiments?")
 if st.button("Show headlines"):
-    st.session_state.button1_on = not st.session_state.button1_on
-if st.session_state.button1_on:
+#     st.session_state.button1_on = not st.session_state.button1_on
+# if st.session_state.button1_on:
 
     ### Loading and displaying today's dfs (grouped and full)
     directory_path = "data/"
@@ -41,8 +41,8 @@ if st.session_state.button1_on:
 ### How the app works
 st.write("Curious about how this app works?")
 if st.button('Explain'):
-    st.session_state.button2_on = not st.session_state.button2_on
-if st.session_state.button2_on:
+#     st.session_state.button2_on = not st.session_state.button2_on
+# if st.session_state.button2_on:
 
     ### SA Explained
     sa_defined = """
