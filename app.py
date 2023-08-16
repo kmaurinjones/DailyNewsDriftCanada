@@ -7,6 +7,8 @@ from plot import *
 
 st.title("**📰🍁 DailyNewsDriftCanada 📈📉**")
 
+st.divider()
+
 ### App Motivation Explained
 app_about = """
 DailyNewsDriftCanada was born out of a desire to navigate the often tumultuous waters of news media. In today's fast-paced world, headlines flood our screens, and discerning their overall sentiment can be overwhelming. The aim is to provide a clear, concise snapshot of the emotional undertones behind Canadian news outlets' headlines. By tracking and comparing these sentiments over time, we hope to foster a deeper understanding of the media landscape, enabling users to engage with news more thoughtfully and critically. DailyNewsDriftCanada isn't just an app, it's a compass for the modern news consumer.
