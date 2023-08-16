@@ -16,7 +16,15 @@ Using the score for each label, a 'compound' score is then calculated, which tak
 
 The 'compound' score for each headline is created as follows:
 
-$\text{compound} = \left( \text{positive} - \left| \text{negative} \right| \right) \times \left( 1 - \text{neutral} \right)")$
+$\text{compound} = \left( \text{positive} - \left| \text{negative} \right| \right) \times \left( 1 - \text{neutral} \right))$
+
+Example:
+
+$positive = 0.0765138119459152$
+$negative = 0.800927460193634$
+$neutral = 0.1225587129592895$
+$compound = (0.0765138119459152 - 0.800927460193634) * (1 - 0.1225587129592895)$
+$compound = 0.6356304438683349$
 
 ## Contact
 
