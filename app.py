@@ -18,8 +18,10 @@ st.write(app_about.strip())
 updated_grand_plot = show_grand_plot()
 st.plotly_chart(updated_grand_plot)
 
+st.divider()
+
 ### See the headlines that contributed to the plot
-st.write("Interested in the headlines that contributed to today's sentiments?")
+st.write("Interested in the headlines that contributed to today's data?")
 show_headlines = button("Show headlines", key = "show_headlines_button")
 if show_headlines:
 
@@ -36,7 +38,7 @@ if show_headlines:
     st.write("**All collected headlines from today are:**")
     st.dataframe(data = today_full)
 
-    st.divider()
+st.divider()
 
 ### How the app works
 st.write("Curious about how this app works?")
@@ -52,11 +54,16 @@ if show_explained:
     ### Methods explained
     how_it_works = """
     Each of the news sources mentioned in the graph above posts several news headlines, which are all posted on specific webpages. The headlines from these webpages are collected through something called Web Scraping. Sentiment Analysis is then performed to quantify how 'negative', 'positive', and 'neutral' each headline is, and these sentiment valencies are then aggregated across each day's posts, which gives us the daily average sentiment valency. This is what is shown in the graph, above.
+
+    'Compound' Score:
+
+    This is what is actually shown in the graph, above. The score is not a value provided by the Sentiment Analysis model, directly, but instead of a value calculated using each of the positive, negative, and neutral scores. To calculate the compound sentiment score of a headline we subtract the 'negative' score from the 'positive' score, and then multiply the difference it by 1 minus the 'neutral' score of the headline. See the formula, below.
     """
     st.write("**How does it work?**")
     st.write(how_it_works.strip())
+    st.latex(r"\text{compound\_score} = \left( \text{positive\_score} - \left| \text{negative\_score} \right| \right) \times \left( 1 - \text{neutral\_score} \right)")
 
-    st.divider()
+st.divider()
 
 eop_message = """Thanks for checking out DailyNewsDriftCanada. If you have any questions or feedback, feel free to email me at kmaurinjones@gmail.com
 """
