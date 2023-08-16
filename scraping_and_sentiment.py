@@ -5,7 +5,15 @@ import requests
 from bs4 import BeautifulSoup
 from transformers import pipeline
 from tqdm import tqdm
-classifier = pipeline("zero-shot-classification", model = "facebook/bart-large-mnli")
+from transformers import AutoModelForSequenceClassification
+from transformers import TFAutoModelForSequenceClassification
+from transformers import AutoTokenizer, AutoConfig
+import numpy as np
+from scipy.special import softmax
+MODEL = f"cardiffnlp/twitter-roberta-base-sentiment-latest"
+tokenizer = AutoTokenizer.from_pretrained(MODEL)
+config = AutoConfig.from_pretrained(MODEL)
+model = AutoModelForSequenceClassification.from_pretrained(MODEL)
 print()
 from general_funcs import *
 
@@ -77,9 +85,25 @@ if response.status_code == 200:
 else:
     global_headlines = None
 
-if 
+### used to prompt the SA model
+def sa_model(headline: str):
+    encoded_input = tokenizer(headline, return_tensors = 'pt')
+    output = model(**encoded_input)
+    scores = output[0][0].detach().numpy()
+    scores = softmax(scores)
+    ranking = np.argsort(scores)
+    ranking = ranking[::-1]
 
-def sa_headlines(headlines_urls: list, labels: list, source: str = None):
+    results = {}
+
+    for i in range(scores.shape[0]):
+        l = config.id2label[ranking[i]]
+        s = scores[ranking[i]]
+        results[l] = s
+
+    return results
+
+def sa_headlines(headlines_urls: list, source: str = None):
     """
     Performs Sentiment Analysis (SA) on a list of headlines and returns a dictionary 
     containing the results and other associated data.
@@ -88,8 +112,6 @@ def sa_headlines(headlines_urls: list, labels: list, source: str = None):
         headlines_urls (list): A list of tuples where each tuple consists of two elements:
                                1) A headline as a string 
                                2) The corresponding URL as a string
-        labels (list): A list of labels to classify each headline.
-                       e.g., ['negative', 'positive', 'neutral']
         source (str, optional): The source or origin of the headlines. Defaults to None.
 
     Returns:
@@ -99,7 +121,6 @@ def sa_headlines(headlines_urls: list, labels: list, source: str = None):
               - 'headline': List of the provided headlines.
               - 'url': List of URLs corresponding to each headline.
               - 'chosen_label': List of chosen sentiment labels based on the analysis.
-              - 'chosen_label_val': List of sentiment values corresponding to the chosen labels.
               - Each label from the `labels` list will also be a key, containing a list of scores.
               - 'compound': (Only if 'negative' and 'positive' and 'neutral' are in `labels`) List of compound scores.
 
@@ -116,68 +137,57 @@ def sa_headlines(headlines_urls: list, labels: list, source: str = None):
         labels = ['negative', 'positive', 'neutral']
         result = SA_headlines(headlines, labels, "NewsSource")
     """
-    responses_dict = {lab:[] for lab in labels}
 
-    # Initialize the dictionary with keys and empty lists
     responses_dict = {
         'source' : [],
         'date' : [],
         "headline" : [],
         'url' : [],
         "chosen_label" : [],
-        'chosen_label_val' : [],
-        **responses_dict,  # empty list for each passed label
-    }
-
-    # Check if 'negative' and 'positive' labels are provided, and initialize 'compound'
-    if ('negative' and 'positive') in labels:
-        responses_dict['compound'] = []
+        'positive': [],
+        'negative': [],
+        'neutral': [],
+        'compound' : []
+        }
 
     date = get_today_iso()
 
-    # Eliminate duplicate headlines
+    # get rid of any duplicates in headlines list
     headlines_urls = list(set(headlines_urls))
 
-    # Process each headline and perform SA
     for head_text, url in tqdm(headlines_urls, desc = source):
   
-        # Add meta data to dictionary
+        # add non-SA things to dict
         responses_dict['source'].append(source.strip())
         responses_dict['date'].append(date.strip())
         responses_dict['headline'].append(head_text.strip())
         responses_dict['url'].append(url)
 
-        # Perform Sentiment Analysis using the `classifier` function
-        response = classifier(head_text, labels)
+        # perform SA
+        response = sa_model(headline = head_text)
 
-        # Add the SA results to the dictionary
-        for i in range(len(labels)):
-            score = response['scores'][response['labels'].index(labels[i])]
-            responses_dict[labels[i]].append(score)
+        # add SA results to dict
+        for lab, score in response.items():
+            responses_dict[lab].append(score)
 
-        # Calculate compound score if 'negative', 'positive', and 'neutral' are provided
-        if ('negative' and 'positive' and 'neutral') in labels:
-            compound = (responses_dict['positive'][-1] - responses_dict['negative'][-1]) * (1 - responses_dict['neutral'][-1])
-            responses_dict['compound'].append(compound)
-            responses_dict['chosen_label_val'].append(compound)
+        # creating compound score from 'negative' and 'positive' and 'neutral' scores
+        compound = (responses_dict['positive'][-1] - responses_dict['negative'][-1]) * (1 - responses_dict['neutral'][-1])
+        responses_dict['compound'].append(compound)
 
-            # Derive sentiment label from compound score
-            if compound >= 0.1:
-                responses_dict['chosen_label'].append("positive")
-            elif compound <= -0.1:
-                responses_dict['chosen_label'].append('negative')
-            else:
-                responses_dict['chosen_label'].append("neutral")
-        # If only one label provided, use the model's label
+        # creating SA labels from compound score (a bit more robust than model's labels)
+        if compound >= 0.05:
+            responses_dict['chosen_label'].append("positive")
+        elif compound <= -0.05:
+            # responses_dict['chosen_label_val'].append("negative")
+            responses_dict['chosen_label'].append('negative')
         else:
-            responses_dict['chosen_label_val'].append(response['scores'][0])
-            responses_dict['chosen_label'].append(response['labels'][0])
+            responses_dict['chosen_label'].append("neutral")
 
     return responses_dict
 
 ### Perform SA on all found headlines
 
-labels = ['positive', 'negative', 'neutral']
+# labels = ['positive', 'negative', 'neutral']
 
 # all respective sources and headlines
 sources_headlines = [
@@ -193,7 +203,7 @@ for source, headlines in sources_headlines:
     # make sure both are not None -- there could be some scraping error and return empty headlines
     if (source and headlines):
 
-        sa_results = sa_headlines(headlines_urls = headlines, labels = labels, source = source)
+        sa_results = sa_headlines(headlines_urls = headlines, source = source)
 
         # just overwrite the whole dict with the first results
         if not master_results:
@@ -217,11 +227,11 @@ grouped_df = master_df.groupby(['date', 'source']).mean(numeric_only = True).res
 new_labs = []
 
 for row in grouped_df.index:
-    val = grouped_df.loc[row, 'chosen_label_val']
+    val = grouped_df.loc[row, 'compound']
 
-    if val >= 0.1:
+    if val >= 0.05:
         new_labs.append('positive')
-    elif val <= -0.1:
+    elif val <= -0.05:
         new_labs.append('negative')
     else:
         new_labs.append('neutral')
