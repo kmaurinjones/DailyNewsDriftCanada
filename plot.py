@@ -37,12 +37,28 @@ full_df_10['date_str'] = full_df_10['date'].apply(lambda x: get_date_str(x))
 
 def show_grand_plot():
 
-    fig = px.line(grouped_df_10, x = 'date_str', y = 'chosen_label_val', color = 'source', title = "Sentiment Valency over Time", markers = True)
+    fig = px.line(grouped_df_10, x = 'date_str', y = 'chosen_label_val', color = 'source',
+              color_discrete_map = {"CBC": "#EC1D2D", "CTV": "#0046D4", "Global": "#231F20"},
+              title = "Sentiment Valency over Time", markers = True)
+
+    # Updating layout with font sizes and title position
     fig.update_layout(
-        title = "Sentiment of Canadian News Outlets Over Time",
+        title = {
+            'text': "Sentiment of Canadian News Outlets Over Time",
+            'y':0.95,
+            'x':0.5,
+            'xanchor': 'center',
+            'yanchor': 'top',
+            'font': {
+                'size': 20  # or any desired font size
+            }
+        },
         xaxis_title = "Date",
+        xaxis_title_font_size = 16,  # or any desired font size
+        xaxis_tickfont_size = 14,  # or any desired font size
         yaxis_title = "Sentiment Valence",
-        xaxis = dict(type = 'category')  # Set x-axis type to 'category'
+        yaxis_title_font_size = 16,  # or any desired font size
+        yaxis_tickfont_size = 14   # or any desired font size
     )
 
     return fig
