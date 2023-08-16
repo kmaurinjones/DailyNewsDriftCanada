@@ -15,7 +15,6 @@ def get_today_iso():
     """
     return date.today().isoformat()
 
-
 def robust_parse_date(date_string):
     """
     Robustly parses a date string and returns the date in ISO format. 
@@ -39,7 +38,6 @@ def robust_parse_date(date_string):
     
     # Return the date in the ISO format
     return dt.date().isoformat()
-
 
 def get_date_str(date_str):
     """
