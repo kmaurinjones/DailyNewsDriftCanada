@@ -29,7 +29,7 @@ def get_time_minus_4h():
     return date_of_time_minus_4h, time_minus_4h
 
 date, time = get_time_minus_4h()
-st.write(f"Last updated: {date} at {time} EST")
+st.write(f"Data last updated: {date}, {time} EST")
 
 ### Chart Explanation
 chart_explained = """
