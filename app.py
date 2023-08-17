@@ -2,6 +2,7 @@ import streamlit as st
 from streamlit_extras.stateful_button import button # for button that can maintain its clicked state
 import pandas as pd
 import os
+from datetime import datetime
 from general_funcs import *
 from plot import *
 
@@ -19,6 +20,15 @@ st.write(app_about.strip())
 ### Show Plot
 updated_grand_plot = show_grand_plot()
 st.plotly_chart(updated_grand_plot)
+
+def get_current_time_and_date():
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+    current_date = now.strftime("%Y-%m-%d")
+    return current_date, current_time
+
+date, time = get_current_time_and_date()
+st.write(f"Data last updated: {date} at {time}")
 
 ### Chart Explanation
 chart_explained = """
