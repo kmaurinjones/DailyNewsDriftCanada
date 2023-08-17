@@ -216,7 +216,8 @@ for source, headlines in sources_headlines:
 
 master_df = pd.DataFrame(master_results)
 
-data_dir = "data/"
+# data_dir = "data/"
+data_dir = "/Users/kmaurinjones/Desktop/ds/github_repos/DailyNewsDriftCanada/data/"
 
 ### WRITING DAILY FULL DF TO CSV
 master_df.to_csv(f"{data_dir}{get_today_iso()}_SA_full.csv", index = False)
