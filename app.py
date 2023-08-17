@@ -41,7 +41,7 @@ if show_headlines:
     today_grouped = [pd.read_csv(directory_path + df) for df in today_dfs_list if "grouped" in df][0]
     today_full = [pd.read_csv(directory_path + df) for df in today_dfs_list if "full" in df][0]
 
-    st.write("**Aggregated sentiments of today's headlines:**")
+    st.write("**Aggregated sentiment analysis of today's collected headlines:**")
     st.dataframe(data = today_grouped)
 
     st.write("**Today's collected headlines:**")
