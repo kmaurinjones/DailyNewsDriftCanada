@@ -21,15 +21,16 @@ st.write(app_about.strip())
 updated_grand_plot = show_grand_plot()
 st.plotly_chart(updated_grand_plot)
 
-def get_time_minus_4h():
-    now = datetime.now()
-    four_hours_ago = now - timedelta(hours=4)
-    time_minus_4h = four_hours_ago.strftime("%H:%M:%S")
-    date_of_time_minus_4h = four_hours_ago.strftime("%Y-%m-%d")
-    return date_of_time_minus_4h, time_minus_4h
+# def get_time_minus_4h():
+#     now = datetime.now()
+#     four_hours_ago = now - timedelta(hours=4)
+#     time_minus_4h = four_hours_ago.strftime("%H:%M:%S")
+#     date_of_time_minus_4h = four_hours_ago.strftime("%Y-%m-%d")
+#     return date_of_time_minus_4h, time_minus_4h
 
-date, time = get_time_minus_4h()
-st.write(f"*Data last updated: {date}, {time} EST*")
+# date, time = get_time_minus_4h()
+# st.write(f"*Data last updated: {date}, {time} EST*")
+st.write(f"*Data updated at 10am and 9pm EST, daily*")
 
 ### Chart Explanation
 chart_explained = """
