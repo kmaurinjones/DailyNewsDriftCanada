@@ -2,7 +2,7 @@ import streamlit as st
 from streamlit_extras.stateful_button import button # for button that can maintain its clicked state
 import pandas as pd
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 from general_funcs import *
 from plot import *
 
@@ -21,14 +21,15 @@ st.write(app_about.strip())
 updated_grand_plot = show_grand_plot()
 st.plotly_chart(updated_grand_plot)
 
-def get_current_time_and_date():
+def get_time_minus_4h():
     now = datetime.now()
-    current_time = now.strftime("%H:%M:%S")
-    current_date = now.strftime("%Y-%m-%d")
-    return current_date, current_time
+    four_hours_ago = now - timedelta(hours=4)
+    time_minus_4h = four_hours_ago.strftime("%H:%M:%S")
+    date_of_time_minus_4h = four_hours_ago.strftime("%Y-%m-%d")
+    return date_of_time_minus_4h, time_minus_4h
 
-date, time = get_current_time_and_date()
-st.write(f"Data last updated: {date}, {time}")
+date, time = get_time_minus_4h()
+print(f"Last updated: {date} at {time}")
 
 ### Chart Explanation
 chart_explained = """
