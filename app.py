@@ -80,7 +80,7 @@ if show_explained:
     st.write(how_it_works.strip())
 
     compound_explained = """
-    This is what is actually shown in the graph, above. The score is not a value provided by the Sentiment Analysis model, directly, but instead of a value calculated using each of the positive, negative, and neutral scores. To calculate the compound sentiment score of a headline we subtract the 'negative' score from the 'positive' score, and then multiply the difference it by 1 minus the 'neutral' score of the headline. See the formula, below.
+    This is what is actually shown in the graph, above. This score is not a value provided by the Sentiment Analysis model, directly, but instead of a value calculated using each of the positive, negative, and neutral scores. To calculate the compound sentiment score of a headline we subtract the 'negative' score from the 'positive' score, and then multiply the difference it by 1 minus the 'neutral' score of the headline. See the formula, below.
     """
     st.write("**'Compound' Score:**")
     st.write(compound_explained.strip())

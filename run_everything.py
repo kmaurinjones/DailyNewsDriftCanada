@@ -10,8 +10,8 @@ print("Standard Output:", completed_process.stdout)
 print("Standard Error:", completed_process.stderr)
 
 def run_shell_script():
-    # command = ['./git_auto_push.sh', 'Data updated and pushed to Github']
-    command = ['/Users/kmaurinjones/Desktop/ds/github_repos/DailyNewsDriftCanada/git_auto_push.sh', 'data updated']
+    # command = ['/Users/kmaurinjones/Desktop/ds/github_repos/DailyNewsDriftCanada/git_auto_push.sh', 'data updated']
+    command = ['git_auto_push.sh', 'data updated']
     result = subprocess.run(command)
 
     if result.returncode == 0:
