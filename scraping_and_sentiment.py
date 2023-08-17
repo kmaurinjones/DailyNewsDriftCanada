@@ -242,3 +242,34 @@ grouped_df['chosen_label'] = new_labs
 grouped_df.to_csv(f"{data_dir}{get_today_iso()}_SA_grouped.csv", index = False)
 
 print(f"Daily aggregated file written to data/ directory")
+
+import git
+
+def git_add_commit_push(repo_path, commit_message, remote_name='origin', branch='main'):
+    """
+    Add, commit, and push using GitPython.
+
+    Parameters:
+    - repo_path: Path to the git repository.
+    - commit_message: Commit message.
+    - remote_name: The name of the remote (default is 'origin').
+    - branch: The branch to push to (default is 'master').
+    """
+    repo = git.Repo(repo_path)
+    
+    # Add all changes
+    repo.git.add(A=True)
+
+    # Commit
+    repo.git.commit(m=commit_message)
+
+    # Push
+    origin = repo.remote(name=remote_name)
+    origin.push(branch)
+
+    print(f"Repo updated. Commit: '{commit_message}'")
+
+local_repo_path = "/Users/kmaurinjones/Desktop/ds/github_repos/DailyNewsDriftCanada/"
+
+# Usage
+git_add_commit_push(repo_path = local_repo_path, commit_message = 'scheduled data update')
