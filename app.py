@@ -28,7 +28,7 @@ def get_current_time_and_date():
     return current_date, current_time
 
 date, time = get_current_time_and_date()
-st.write(f"Data last updated: {date} at {time}")
+st.write(f"Data last updated: {date}, {time}")
 
 ### Chart Explanation
 chart_explained = """
