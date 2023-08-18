@@ -61,14 +61,15 @@ def show_grand_plot():
 
     fig = px.line(grouped_df_recent, x = 'date_str', y = 'compound', color = 'source',
             #   color_discrete_map = {"CBC": "#EC1D2D", "CTV": "#0046D4", "Global": "#231F20"},
-              title = "Sentiment Valency over Time", markers = True)
+            #   title = "Sentiment Valency over Time",
+              markers = True)
 
     # Updating layout with font sizes and title position
     fig.update_layout(
         title = {
             'text': "Sentiment of Canadian News Outlets Over Time",
-            'y':0.95,
-            'x':0.5,
+            'y': 0.95,
+            'x': 0.5,
             'xanchor': 'center',
             'yanchor': 'top',
             'font': {
@@ -120,11 +121,16 @@ if 'initial_time' not in st.session_state:
 st.write(f"*Data last updated: {subtract_four_hours(st.session_state.initial_time)}")
 
 ### Chart Explanation
-chart_explained = """
+chart_explained_1 = """
 Sentiment valence, a scale between -1 and 1, measures the emotional tone of text. A score of -1 represents extreme negativity, while 1 indicates extreme positivity. Values closer to 0 signify neutrality. This scale helps quantify sentiments in language, which is useful in Natural Language Processing tasks like sentiment analysis, as used here on the headlines from each of the news sources.
 """
+chart_explained_2 = """
+This chart is intended to be read from the left side to the right side. Check the legend in the upper right-hand corner of the chart to see which news organization corresponds to which line (look for the same colour), then see how the line changes vertically as it moves from the left to the right. From left to right, if the line goes up, it means the headlines of that particular got more positive (on average) from the previous day. Conversely, if the line goes down from left to right, the headlines got more negative (on average) from the previous day. By comparing how one line's behaviour to another, we can get a general idea of how negative or positive one news outlet is compared to another.
+"""
+
 st.write("**Chart Explained:**")
-st.write(chart_explained.strip())
+st.write(chart_explained_1.strip())
+st.write(chart_explained_2.strip())
 
 st.divider()
 
