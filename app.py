@@ -123,7 +123,8 @@ if show_headlines:
 
     ### Loading and displaying today's dfs (grouped and full)
     directory_path = "data/"
-    today_date = get_today_iso()
+    # today_date = get_today_iso() # because this is relative to the server's date (which seems to be relative to GMT, which is +4h from EST -- this means that 'today' is different than my 'today' between 8pm and 12am)
+    today_date = [line.strip() for line in open(logs_path, "r").readlines()][-1].split(": ")[-1].split(", ")[0] # just the date from the date, time in the update message
     today_dfs_list = [file for file in os.listdir(directory_path) if today_date in file]
     today_grouped = [pd.read_csv(directory_path + df) for df in today_dfs_list if "grouped" in df][0]
     today_full = [pd.read_csv(directory_path + df) for df in today_dfs_list if "full" in df][0]
