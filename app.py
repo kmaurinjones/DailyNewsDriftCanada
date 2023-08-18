@@ -17,6 +17,78 @@ DailyNewsDriftCanada is a tool designed to analyze the sentiment of news headlin
 st.write("**What is DailyNewsDriftCanada?**")
 st.write(app_about.strip())
 
+########################################################################################################################################################################
+
+# import os
+# import pandas as pd
+# from general_funcs import *
+import plotly.express as px
+
+def find_csv_files(directory_path):
+    """Returns a list of all .csv files in the given directory"""
+    return [file for file in os.listdir(directory_path) if file.endswith('.csv')]
+
+# Example usage
+directory_path = 'data/'  # current directory
+csv_files = find_csv_files(directory_path)
+days_to_display = 20
+most_recent_x_days = sorted(csv_files)[::-1][:days_to_display*2] # twice as many because there are two files for each day
+
+### Making grand ground and full dfs of 10 most recent days
+
+grouped_dfs = []
+full_dfs = []
+for fpath in most_recent_x_days:
+    df = pd.read_csv(directory_path + fpath)
+
+    # grouped dfs
+    if "grouped" in fpath:
+        grouped_dfs.append(df)
+
+    # full dfs
+    else:
+        full_dfs.append(df)
+
+grouped_df_recent = pd.concat(grouped_dfs, axis = 0, ignore_index = True).sort_values(by = 'date', ascending = True).reset_index(drop = True)
+grouped_df_recent['date_str'] = grouped_df_recent['date'].apply(lambda x: get_date_str(x))
+
+full_df_recent = pd.concat(full_dfs, axis = 0, ignore_index = True).sort_values(by = 'date', ascending = True).reset_index(drop = True)
+full_df_recent['date_str'] = full_df_recent['date'].apply(lambda x: get_date_str(x))
+
+### THIS IS THE PLOT -- this should be called in the app.py file
+
+def show_grand_plot():
+
+    fig = px.line(grouped_df_recent, x = 'date_str', y = 'compound', color = 'source',
+            #   color_discrete_map = {"CBC": "#EC1D2D", "CTV": "#0046D4", "Global": "#231F20"},
+              title = "Sentiment Valency over Time", markers = True)
+
+    # Updating layout with font sizes and title position
+    fig.update_layout(
+        title = {
+            'text': "Sentiment of Canadian News Outlets Over Time",
+            'y':0.95,
+            'x':0.5,
+            'xanchor': 'center',
+            'yanchor': 'top',
+            'font': {
+                'size': 20  # or any desired font size
+            }
+        },
+        xaxis_title = "Date",
+        xaxis_title_font_size = 16,  # or any desired font size
+        xaxis_tickfont_size = 14,  # or any desired font size
+        yaxis_title = "Sentiment Valence",
+        yaxis_title_font_size = 16,  # or any desired font size
+        yaxis_tickfont_size = 14   # or any desired font size
+    )
+
+    return fig
+
+# fig.show()
+
+########################################################################################################################################################################
+
 ### Show Plot
 updated_grand_plot = show_grand_plot()
 st.plotly_chart(updated_grand_plot)
@@ -30,8 +102,22 @@ st.plotly_chart(updated_grand_plot)
 
 # date, time = get_time_minus_4h()
 # st.write(f"*Data last updated: {date}, {time} EST*")
-# st.write(f"*Data updated every 3 hours between 10am and 10pm EST, daily*")
-st.write(f"*Data last updated at {subtract_four_hours()}*")
+
+# import streamlit as st
+# from datetime import datetime, timedelta
+
+def subtract_four_hours(initial_time):
+    # Subtract 4 hours
+    new_time = initial_time - timedelta(hours=4)
+    
+    return new_time
+
+# Check for session state
+if 'initial_time' not in st.session_state:
+    st.session_state.initial_time = datetime.now()
+
+# Display the time minus 4 hours
+st.write(f"*Data last updated: {subtract_four_hours(st.session_state.initial_time)}")
 
 ### Chart Explanation
 chart_explained = """
