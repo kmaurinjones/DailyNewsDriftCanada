@@ -31,7 +31,7 @@ st.plotly_chart(updated_grand_plot)
 # date, time = get_time_minus_4h()
 # st.write(f"*Data last updated: {date}, {time} EST*")
 # st.write(f"*Data updated every 3 hours between 10am and 10pm EST, daily*")
-st.write(f"*Data last updated at {subtract_four_hours}*")
+st.write(f"*Data last updated at {subtract_four_hours()}*")
 
 ### Chart Explanation
 chart_explained = """
