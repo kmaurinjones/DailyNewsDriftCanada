@@ -1,5 +1,4 @@
-from datetime import datetime
-from datetime import date
+from datetime import datetime, date, timedelta
 from dateutil import parser
 
 def get_today_iso():
@@ -62,16 +61,9 @@ def get_date_str(date_str):
     # Format the datetime object to the desired output format
     return date_obj.strftime('%b %d, %Y')
 
-from datetime import datetime, timedelta
-
-def subtract_four_hours():
-    # Get the current time
-    current_time = datetime.now()
-    
-    # Subtract 4 hours
-    new_time = current_time - timedelta(hours=4)
-    
-    return new_time
-
-# Test the function
-print(subtract_four_hours())
+def get_time_minus_4h():
+    now = datetime.now()
+    four_hours_ago = now - timedelta(hours=4)
+    time_minus_4h = four_hours_ago.strftime("%H:%M:%S")
+    date_of_time_minus_4h = four_hours_ago.strftime("%Y-%m-%d")
+    return date_of_time_minus_4h, time_minus_4h

@@ -10,13 +10,14 @@ def find_csv_files(directory_path):
 # Example usage
 directory_path = 'data/'  # current directory
 csv_files = find_csv_files(directory_path)
-most_recent_10_days = sorted(csv_files)[::-1][:20]
+days_to_display = 20
+most_recent_x_days = sorted(csv_files)[::-1][:days_to_display*2] # twice as many because there are two files for each day
 
 ### Making grand ground and full dfs of 10 most recent days
 
 grouped_dfs = []
 full_dfs = []
-for fpath in most_recent_10_days:
+for fpath in most_recent_x_days:
     df = pd.read_csv(directory_path + fpath)
 
     # grouped dfs
@@ -27,17 +28,17 @@ for fpath in most_recent_10_days:
     else:
         full_dfs.append(df)
 
-grouped_df_10 = pd.concat(grouped_dfs, axis = 0, ignore_index = True).sort_values(by = 'date', ascending = True).reset_index(drop = True)
-grouped_df_10['date_str'] = grouped_df_10['date'].apply(lambda x: get_date_str(x))
+grouped_df_recent = pd.concat(grouped_dfs, axis = 0, ignore_index = True).sort_values(by = 'date', ascending = True).reset_index(drop = True)
+grouped_df_recent['date_str'] = grouped_df_recent['date'].apply(lambda x: get_date_str(x))
 
-full_df_10 = pd.concat(full_dfs, axis = 0, ignore_index = True).sort_values(by = 'date', ascending = True).reset_index(drop = True)
-full_df_10['date_str'] = full_df_10['date'].apply(lambda x: get_date_str(x))
+full_df_recent = pd.concat(full_dfs, axis = 0, ignore_index = True).sort_values(by = 'date', ascending = True).reset_index(drop = True)
+full_df_recent['date_str'] = full_df_recent['date'].apply(lambda x: get_date_str(x))
 
 ### THIS IS THE PLOT -- this should be called in the app.py file
 
 def show_grand_plot():
 
-    fig = px.line(grouped_df_10, x = 'date_str', y = 'compound', color = 'source',
+    fig = px.line(grouped_df_recent, x = 'date_str', y = 'compound', color = 'source',
             #   color_discrete_map = {"CBC": "#EC1D2D", "CTV": "#0046D4", "Global": "#231F20"},
               title = "Sentiment Valency over Time", markers = True)
 

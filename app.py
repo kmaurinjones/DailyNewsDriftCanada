@@ -94,31 +94,12 @@ def show_grand_plot():
 updated_grand_plot = show_grand_plot()
 st.plotly_chart(updated_grand_plot)
 
-# def get_time_minus_4h():
-#     now = datetime.now()
-#     four_hours_ago = now - timedelta(hours=4)
-#     time_minus_4h = four_hours_ago.strftime("%H:%M:%S")
-#     date_of_time_minus_4h = four_hours_ago.strftime("%Y-%m-%d")
-#     return date_of_time_minus_4h, time_minus_4h
+logs_path = "/Users/kmaurinjones/Desktop/ds/github_repos/DailyNewsDriftCanada/logs.txt"
 
-# date, time = get_time_minus_4h()
-# st.write(f"*Data last updated: {date}, {time} EST*")
-
-# import streamlit as st
-# from datetime import datetime, timedelta
-
-def subtract_four_hours(initial_time):
-    # Subtract 4 hours
-    new_time = initial_time - timedelta(hours=4)
-    
-    return new_time
-
-# Check for session state
-if 'initial_time' not in st.session_state:
-    st.session_state.initial_time = datetime.now()
+current_logs = [line.strip() for line in open(logs_path, "r").readlines()]
 
 # Display the time minus 4 hours
-st.write(f"*Data last updated: {subtract_four_hours(st.session_state.initial_time)}")
+st.write(f"*Data last updated: {current_logs[-1]}*")
 
 ### Chart Explanation
 chart_explained_1 = """

@@ -269,5 +269,26 @@ def git_add_commit_push(repo_path, commit_message, remote_name = 'origin', branc
 
 local_repo_path = "/Users/kmaurinjones/Desktop/ds/github_repos/DailyNewsDriftCanada/"
 
-# Usage
-git_add_commit_push(repo_path = local_repo_path, commit_message = 'scheduled data update')
+### Current Date + Time Webpage + Commit Messages
+from datetime import datetime
+
+def get_current_time_and_date():
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+    current_date = now.strftime("%Y-%m-%d")
+    return current_date, current_time
+
+date, time = get_current_time_and_date()
+# print(f"Last updated: {date} at {time}")
+
+### commit changes to repo
+git_add_commit_push(repo_path = local_repo_path, commit_message = f'Scheduled data update: {date}, {time}')
+
+logs_path = "/Users/kmaurinjones/Desktop/ds/github_repos/DailyNewsDriftCanada/logs.txt"
+
+current_logs = [line.strip() for line in open(logs_path, "r").readlines()]
+current_logs.append(f"Data last updated: {date}, {time}")
+
+with open(logs_path, "w") as logs_file:
+    for line in current_logs:
+        logs_file.write(line + "\n")
