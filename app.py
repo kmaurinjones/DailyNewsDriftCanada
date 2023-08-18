@@ -104,9 +104,12 @@ current_logs = [line.strip() for line in open(logs_path, "r").readlines()]
 # Display the time minus 4 hours
 st.write(f"*Data last updated: {current_logs[-1]}* EST")
 
+today_date = full_df_recent.sort_values(by = "date", ascending = False)['date'].unique()[0]
+today_df = full_df_recent[full_df_recent['date'] == today_date]
+
 ## display counts of headlines from each source today
-sources = full_df_recent['source'].unique().tolist() # list of all unique sources
-counts = [len(full_df_recent[full_df_recent['source'] == source]) for source in sources] # list of counts of each source
+sources = today_df['source'].unique().tolist() # list of all unique sources
+counts = [len(today_df[today_df['source'] == source]) for source in sources] # list of counts of each source
 
 st.write(f"*The number of headlines collected from each source today is as follows:*")
 for source, count in zip(sources, counts):
