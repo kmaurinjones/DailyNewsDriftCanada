@@ -110,7 +110,7 @@ counts = [len(full_df_recent[full_df_recent['source'] == source]) for source in 
 
 st.write(f"*The number of headlines collected from each source today is as follows:*")
 for source, count in zip(sources, counts):
-    st.write(f"\t*{source}: {count}*")
+    st.markdown(f"*- {source}: {count}*")
 
 ### Chart Explanation
 chart_explained_1 = """
