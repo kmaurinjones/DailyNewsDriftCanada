@@ -8,6 +8,8 @@ from plot import *
 
 st.title("**📰🍁 DailyNewsDriftCanada 📈📉**")
 
+st.write("TEST")
+
 st.divider()
 
 ### App Motivation Explained
