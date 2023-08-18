@@ -104,6 +104,14 @@ current_logs = [line.strip() for line in open(logs_path, "r").readlines()]
 # Display the time minus 4 hours
 st.write(f"*Data last updated: {current_logs[-1]}* EST")
 
+## display counts of headlines from each source today
+sources = full_df_recent['source'].unique().tolist() # list of all unique sources
+counts = [len(full_df_recent[full_df_recent['source'] == source]) for source in sources] # list of counts of each source
+
+st.write(f"*The number of headlines collected from each source today is as follows:*")
+for source, count in zip(sources, counts):
+    st.write(f"*\t{source}: {count}*")
+
 ### Chart Explanation
 chart_explained_1 = """
 Sentiment valence, a scale between -1 and 1, measures the emotional tone of text. A score of -1 represents extreme negativity, while 1 indicates extreme positivity. Values closer to 0 signify neutrality. This scale helps quantify sentiments in language, which is useful in Natural Language Processing tasks like sentiment analysis, as used here on the headlines from each of the news sources.
