@@ -8,7 +8,7 @@ from plot import *
 
 st.title("**📰🍁 DailyNewsDriftCanada 📈📉**")
 
-st.write("TEST")
+# st.write("TEST")
 
 st.divider()
 
