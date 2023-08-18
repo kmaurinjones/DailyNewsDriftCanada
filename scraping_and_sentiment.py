@@ -6,11 +6,9 @@ import requests
 from bs4 import BeautifulSoup
 from transformers import pipeline
 from tqdm import tqdm
-from transformers import AutoModelForSequenceClassification
-from transformers import TFAutoModelForSequenceClassification
-from transformers import AutoTokenizer, AutoConfig
 import numpy as np
 from scipy.special import softmax
+from transformers import AutoTokenizer, AutoConfig, AutoModelForSequenceClassification
 MODEL = f"cardiffnlp/twitter-roberta-base-sentiment-latest"
 tokenizer = AutoTokenizer.from_pretrained(MODEL)
 config = AutoConfig.from_pretrained(MODEL)
