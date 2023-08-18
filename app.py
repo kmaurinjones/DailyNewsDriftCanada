@@ -102,7 +102,7 @@ logs_path = "logs.txt"
 current_logs = [line.strip() for line in open(logs_path, "r").readlines()]
 
 # Display the time minus 4 hours
-st.write(f"*Data last updated: {current_logs[-1]}* EST")
+st.write(f"*{current_logs[-1]}* EST")
 
 today_date = full_df_recent.sort_values(by = "date", ascending = False)['date'].unique()[0]
 today_df = full_df_recent[full_df_recent['date'] == today_date]
