@@ -94,7 +94,8 @@ def show_grand_plot():
 updated_grand_plot = show_grand_plot()
 st.plotly_chart(updated_grand_plot)
 
-logs_path = "/Users/kmaurinjones/Desktop/ds/github_repos/DailyNewsDriftCanada/logs.txt"
+# logs_path = "/Users/kmaurinjones/Desktop/ds/github_repos/DailyNewsDriftCanada/logs.txt"
+logs_path = "logs.txt"
 
 current_logs = [line.strip() for line in open(logs_path, "r").readlines()]
 
