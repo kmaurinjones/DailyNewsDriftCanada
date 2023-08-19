@@ -117,10 +117,10 @@ for source, count in zip(sources, counts):
 
 ### Chart Explanation
 chart_explained_1 = """
-Sentiment valence, a scale between -1 and 1, measures the emotional tone of text. A score of -1 represents extreme negativity, while 1 indicates extreme positivity. Values closer to 0 signify neutrality. This scale helps quantify sentiments in language, which is useful in Natural Language Processing tasks like sentiment analysis, as used here on the headlines from each of the news sources.
+Sentiment valence, a scale between -1 and 1, measures the emotional tone of a text. A score of -1 represents extreme negativity, while 1 indicates extreme positivity. Values closer to 0 signify neutrality. This scale helps quantify sentiments in language, which is useful in Natural Language Processing tasks like sentiment analysis, as used here on the headlines from each of the news sources.
 """
 chart_explained_2 = """
-This chart is intended to be read from the left side to the right side. Check the legend in the upper right-hand corner of the chart to see which news organization corresponds to which line (look for the same colour), then see how the line changes vertically as it moves from the left to the right. From left to right, if the line goes up, it means the headlines of that particular got more positive (on average) from the previous day. Conversely, if the line goes down from left to right, the headlines got more negative (on average) from the previous day. By comparing how one line's behaviour to another, we can get a general idea of how negative or positive one news outlet is compared to another.
+This chart is intended to be read from the left side to the right side. Check the legend in the upper right-hand corner of the chart to see which news organization corresponds to which line (look for the same colour), then see how the line changes vertically as it moves from the left to the right. From left to right, if the line goes up, it means the headlines of that particular day got more positive (on average) than the previous day. Conversely, if the line goes down from left to right, the headlines got more negative (on average) from the previous day. By comparing one line's behaviour to another, we can get a general idea of how negative or positive one news outlet's headlines are compared to another.
 """
 
 st.write("**Chart Explained:**")
