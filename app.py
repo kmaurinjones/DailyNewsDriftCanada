@@ -173,7 +173,7 @@ if show_explained:
     """
     st.write("**'Compound' Score:**")
     st.write(compound_explained.strip())
-    st.latex(r"\text{compound\_score} = \left( \text{positive\_score} - \left| \text{negative\_score} \right| \right) \times \left( 1 - \text{neutral\_score} \right)")
+    st.latex(r"\text{compound\_score} = \left( \text{positive\_score} - \text{negative\_score} \right) \times \left( 1 - \text{neutral\_score} \right)")
 
 st.divider()
 
