@@ -84,14 +84,14 @@ def show_grand_plot():
 
     # Updating layout
     fig.update_layout(
-        title={
+        title = {
             'text': "Sentiment of Canadian News Outlets Over Time",
-            'y': 0.95,
+            'y': 1, # height of title on plot
             'x': 0.5,
             'xanchor': 'center',
             'yanchor': 'top',
             'font': {'size': 20}
-        },
+            },
         xaxis_title="Date",
         xaxis_title_font_size=16,
         xaxis_tickfont_size=14,
