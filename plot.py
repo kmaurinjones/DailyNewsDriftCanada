@@ -86,7 +86,7 @@ def show_grand_plot():
     fig.update_layout(
         title = {
             'text': "Sentiment of Canadian News Outlets Over Time",
-            'y': 1, # height of title on plot
+            'y': 0.99, # height of title on plot
             'x': 0.5,
             'xanchor': 'center',
             'yanchor': 'top',
