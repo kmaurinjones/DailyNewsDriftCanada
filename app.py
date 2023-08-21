@@ -78,7 +78,7 @@ if show_headlines:
 st.divider()
 
 ### How the app works
-st.write("**Curious About How This App Works?**")
+st.write("**Curious about how this app works?**")
 show_explained = button("Explain", key = "show_explained_button")
 if show_explained:
     ### SA Explained
