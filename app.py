@@ -58,7 +58,7 @@ st.divider()
 
 ### See the headlines that contributed to the plot
 st.write("**Interested in the headlines that contributed to today's data?**")
-show_headlines = button("Show headlines", key = "show_headlines_button")
+show_headlines = button("Show Headlines", key = "show_headlines_button")
 if show_headlines:
 
     ### Loading and displaying today's dfs (grouped and full)
