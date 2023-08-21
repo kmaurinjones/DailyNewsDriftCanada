@@ -3,6 +3,7 @@ import pandas as pd
 from general_funcs import *
 import plotly.express as px
 
+
 def find_csv_files(directory_path):
     """Returns a list of all .csv files in the given directory"""
     return [file for file in os.listdir(directory_path) if file.endswith('.csv')]
@@ -40,14 +41,15 @@ def show_grand_plot():
 
     fig = px.line(grouped_df_recent, x = 'date_str', y = 'compound', color = 'source',
             #   color_discrete_map = {"CBC": "#EC1D2D", "CTV": "#0046D4", "Global": "#231F20"},
-              title = "Sentiment Valency over Time", markers = True)
+            #   title = "Sentiment Valency over Time",
+              markers = True)
 
     # Updating layout with font sizes and title position
     fig.update_layout(
         title = {
             'text': "Sentiment of Canadian News Outlets Over Time",
-            'y':0.95,
-            'x':0.5,
+            'y': 0.95,
+            'x': 0.5,
             'xanchor': 'center',
             'yanchor': 'top',
             'font': {
@@ -63,5 +65,3 @@ def show_grand_plot():
     )
 
     return fig
-
-# fig.show()
