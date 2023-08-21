@@ -78,7 +78,7 @@ if show_headlines:
 st.divider()
 
 ### How the app works
-st.write("**Curious about how this app works?**")
+st.write("**Curious About How This App Works?**")
 show_explained = button("Explain", key = "show_explained_button")
 if show_explained:
     ### SA Explained
@@ -92,7 +92,7 @@ if show_explained:
     how_it_works = """
     Each of the news sources mentioned in the graph above posts several news headlines, which are all posted on specific webpages. The headlines from these webpages are collected through something called Web Scraping. Sentiment Analysis is then performed to quantify how 'negative', 'positive', and 'neutral' each headline is, and these sentiment valencies are then aggregated across each day's posts, which gives us the daily average sentiment valence. This is what is shown in the graph, above.
     """
-    st.write("**How does it work?**")
+    st.write("**How Does It Work?**")
     st.write(how_it_works.strip())
 
     compound_explained = """
