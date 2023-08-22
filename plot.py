@@ -65,12 +65,6 @@ full_df_recent['date_str'] = full_df_recent['date'].apply(lambda x: get_date_str
 #     )
 #     return fig
 
-
-
-
-import pandas as pd
-import plotly.express as px
-
 def show_grand_plot():
     # Assuming that 'date_str' is a string; converting it to datetime for sorting
     grouped_df_recent['date_str'] = pd.to_datetime(grouped_df_recent['date_str'])
@@ -98,6 +92,7 @@ def show_grand_plot():
         yaxis_title="Sentiment Valence",
         yaxis_title_font_size=16,
         yaxis_tickfont_size=14,
+
         # Adding date range selector
         xaxis=dict(
             rangeselector=dict(
@@ -109,8 +104,8 @@ def show_grand_plot():
                     dict(step="all", label="All")
                 ])
             ),
-            rangeslider=dict(visible=True),
-            type="date",
+            # rangeslider=dict(visible=True),
+            # type="date",
             # Default to the last 7 days
             # range=[first_day_of_last_week, last_day] # commenting this makes it default to show all dates. This is better for now
         )
