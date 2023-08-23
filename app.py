@@ -5,6 +5,7 @@ import os
 from datetime import datetime, timedelta
 from general_funcs import *
 from plot import *
+import plotly.express as px
 
 st.title("**📰🍁 DailyNewsDriftCanada 📈📉**")
 
@@ -18,6 +19,58 @@ DailyNewsDriftCanada is a tool designed to analyze the sentiment of news headlin
 """
 st.write("**What is DailyNewsDriftCanada?**")
 st.write(app_about.strip())
+
+#######################################################################################################################################
+
+def show_grand_plot():
+    # Assuming that 'date_str' is a string; converting it to datetime for sorting
+    grouped_df_recent['date_str'] = pd.to_datetime(grouped_df_recent['date_str'])
+    grouped_df_recent.sort_values('date_str', inplace=True)
+
+    # Identify the last 7 days
+    last_day = grouped_df_recent['date_str'].max()
+    first_day_of_last_week = last_day - pd.Timedelta(days=6)
+
+    fig = px.line(grouped_df_recent, x='date_str', y='compound', color='source', markers=True)
+
+    # Updating layout
+    fig.update_layout(
+        title = {
+            'text': "Sentiment of Canadian News Outlets Over Time",
+            'y': 0.99, # height of title on plot
+            'x': 0.5,
+            'xanchor': 'center',
+            'yanchor': 'top',
+            'font': {'size': 20}
+            },
+        xaxis_title="Date",
+        xaxis_title_font_size=16,
+        xaxis_tickfont_size=14,
+        yaxis_title="Sentiment Valence",
+        yaxis_title_font_size=16,
+        yaxis_tickfont_size=14,
+
+        # Adding date range selector
+        xaxis=dict(
+            rangeselector=dict(
+                buttons=list([
+                    dict(count=7, label="1w", step="day", stepmode="backward"),
+                    dict(count=1, label="1m", step="month", stepmode="backward"),
+                    dict(count=3, label="3m", step="month", stepmode="backward"),
+                    dict(count=6, label="6m", step="month", stepmode="backward"),
+                    dict(step="all", label="All")
+                ])
+            ),
+            rangeslider=dict(visible=True),
+            type="date",
+
+            # Default to the last 7 days
+            # range=[first_day_of_last_week, last_day] # commenting this makes it default to show all dates. This is better for now
+        )
+    )
+    return fig
+
+#######################################################################################################################################
 
 ### Show Plot
 updated_grand_plot = show_grand_plot()
