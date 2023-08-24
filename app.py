@@ -96,7 +96,7 @@ def show_grand_plot():
             type="date",
 
             # Default to the last 7 days
-            range=[first_day_of_last_week, last_day] # commenting this makes it default to show all dates. This is better for now
+            # range=[first_day_of_last_week, last_day] # commenting this makes it default to show all dates. This is better for now
         )
     )
     return fig
