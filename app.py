@@ -60,7 +60,7 @@ def show_grand_plot():
 
     # Identify the last 7 days
     last_day = grouped_df_recent['date_str'].max()
-    first_day_of_last_week = last_day - pd.Timedelta(days=6)
+    first_day_of_last_week = last_day - pd.Timedelta(days=7)
 
     fig = px.line(grouped_df_recent, x='date_str', y='compound', color='source', markers=True)
 
