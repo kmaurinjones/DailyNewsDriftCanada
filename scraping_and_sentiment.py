@@ -17,79 +17,12 @@ model = AutoModelForSequenceClassification.from_pretrained(MODEL)
 print()
 from general_funcs import *
 
-# ### scraping CBC ###
-
-# url = "https://www.cbc.ca/news"
-
-# response = requests.get(url)
-# if response.status_code == 200:
-#     soup = BeautifulSoup(response.content, "html.parser")
-
-#     links = soup.find_all("a")
-#     cbc_headlines = []
-#     for link in links:
-#         headline = link.h3
-#         href = link['href']
-
-#         # make sure both are not None
-#         if (headline and href):
-#             cbc_headlines.append((headline.text, "https://www.cbc.ca" + href))
-# else:
-#     cbc_headlines = None
-
-# ### scraping CTV ###
-
-# url = "https://www.ctvnews.ca/canada"
-
-# response = requests.get(url)
-# if response.status_code == 200:
-#     soup = BeautifulSoup(response.content, "html.parser")
-
-#     links = soup.find_all("h3", attrs = {'class' : 'c-list__item__title'})
-#     ctv_headlines = []
-#     for link in links:
-
-#         # get url and text
-#         if link.a:
-#             href = link.a['href'].strip()
-#             text = link.a.text.strip()
-
-#             # make sure both are not None
-#             if (text and href):
-#                 ctv_headlines.append((text, href))
-# else:
-#     ctv_headlines = None
-
-# ### scraping Global ###
-
-# url = "https://globalnews.ca/canada/"
-
-# response = requests.get(url)
-# # print(response.status_code)
-# if response.status_code == 200:
-#     soup = BeautifulSoup(response.content, "html.parser")
-
-#     links = soup.find_all("a", attrs = {'class' : 'c-posts__inner'})
-
-#     global_headlines = []
-#     for link in links:
-
-#         # get span element -- text is here
-#         if link.span:
-#             href = link['href'].strip()
-#             text = link.span.text.strip()
-
-#             # make sure both are not None
-#             if (text and href):
-#                 global_headlines.append((text, href))
-# else:
-#     global_headlines = None
-
 ### Scraping all headlines -- from scraping.py
 
 cbc_headlines = get_cbc_headlines()
 ctv_headlines = get_ctv_headlines()
 global_headlines = get_global_headlines()
+print()
 
 ### used to prompt the SA model
 def sa_model(headline: str):
