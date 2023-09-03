@@ -161,7 +161,12 @@ def show_weekday_plot():
 ### Show Plot
 updated_grand_plot = show_grand_plot()
 st.plotly_chart(updated_grand_plot)
-st.write(updated_grand_plot.data)
+# st.write(updated_grand_plot.data)
+
+# Extracting color scheme information from fig.data so that the other chart(s) will match
+color_mapping = {}
+for trace in updated_grand_plot.data:
+    color_mapping[trace.name] = trace.line.color
 
 # logs_path = "/Users/kmaurinjones/Desktop/ds/github_repos/DailyNewsDriftCanada/logs.txt"
 logs_path = "logs.txt"
@@ -195,7 +200,7 @@ st.write(chart1_explained_1.strip())
 st.write(chart1_explained_2.strip())
 
 ### Show day-by-day plot
-weekday_plot = show_weekday_plot()
+weekday_plot = show_weekday_plot(color_mapping)
 st.plotly_chart(weekday_plot)
 
 ### Chart #1 Explanation
