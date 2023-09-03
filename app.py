@@ -3,7 +3,7 @@ from streamlit_extras.stateful_button import button # for button that can mainta
 import pandas as pd
 import os
 from datetime import datetime, timedelta
-from general_funcs import *
+# from general_funcs import *
 from plot import *
 import plotly.express as px
 
