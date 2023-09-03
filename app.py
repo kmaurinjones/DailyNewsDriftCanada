@@ -204,7 +204,8 @@ st.write(chart1_explained_1.strip())
 st.write(chart1_explained_2.strip())
 
 ### Show day-by-day plot
-weekday_plot = show_weekday_plot(color_mapping)
+# weekday_plot = show_weekday_plot(color_mapping)
+weekday_plot = show_weekday_plot()
 st.plotly_chart(weekday_plot)
 
 ### Chart #1 Explanation
