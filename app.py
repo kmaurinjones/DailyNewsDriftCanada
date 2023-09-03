@@ -206,7 +206,7 @@ While the first chart shows how headline sentiment is changing over time, this c
 """
 ## display counts of headlines from each source today
 weekdays = grouped_dfs_all['weekday'].unique().tolist() # list of all unique sources
-wd_counts = [len(grouped_dfs_all[grouped_dfs_all['weekday'] == source]) for source in sources] # list of counts of each source
+wd_counts = [len(grouped_dfs_all[grouped_dfs_all['weekday'] == wday]) for wday in weekdays] # list of counts of each source
 
 st.write("**Chart #2 Explained:**")
 st.write(chart2_explained_1.strip())
