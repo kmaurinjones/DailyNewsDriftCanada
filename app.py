@@ -125,6 +125,7 @@ grouped_dfs_all['weekday'] = pd.Categorical(grouped_dfs_all['weekday'], categori
 
 # Group by 'weekday' and 'source', then calculate the mean of 'compound'
 all_aggs_grouped = grouped_dfs_all.groupby(['weekday', 'source']).mean().reset_index().drop(columns = ['negative', 'positive', 'neutral'])
+st.dataframe(data = all_aggs_grouped)
 
 def weekday_plot():
     fig = px.bar(all_aggs_grouped, 
