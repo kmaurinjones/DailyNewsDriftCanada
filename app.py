@@ -119,16 +119,10 @@ grouped_dfs_all['date'] = pd.to_datetime(grouped_dfs_all['date'])
 # Extract weekday names
 grouped_dfs_all['weekday'] = grouped_dfs_all['date'].dt.day_name()
 grouped_dfs_all = grouped_dfs_all.drop(columns = [col for col in grouped_dfs_all.columns if col not in ['compound', 'weekday', 'source']])
-# grouped_dfs_all = grouped_dfs_all.groupby(by = ['weekday',  'compound', 'source'], numeric_only = True)
 grouped_dfs_all = grouped_dfs_all.groupby(['weekday', 'source']).mean(numeric_only = True).reset_index()
-# grouped_dfs_all = grouped_dfs_all.groupby(numeric_only = True)
-# st.dataframe(grouped_dfs_all)
 
 # Order the weekdays from Monday to Sunday
 ordered_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-
-# Group by 'weekday' and 'source', then calculate the mean of 'compound'
-# grouped_dfs_all['weekday'] = pd.Categorical(grouped_dfs_all['weekday'], categories=ordered_days, ordered=True)
 
 def show_weekday_plot():
     # fig = px.bar(all_aggs_grouped, 
@@ -162,12 +156,12 @@ def show_weekday_plot():
 
     return fig
     
-
 #######################################################################################################################################
 
 ### Show Plot
 updated_grand_plot = show_grand_plot()
 st.plotly_chart(updated_grand_plot)
+st.write(updated_grand_plot.data)
 
 # logs_path = "/Users/kmaurinjones/Desktop/ds/github_repos/DailyNewsDriftCanada/logs.txt"
 logs_path = "logs.txt"
