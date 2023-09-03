@@ -32,8 +32,7 @@ csv_files = find_csv_files(directory_path)
 days_to_display = 60
 most_recent_x_days = sorted(csv_files)[::-1][:days_to_display*2] # twice as many because there are two files for each day
 
-### Making grand ground and full dfs of 10 most recent days
-
+### For grand plot
 grouped_dfs = []
 full_dfs = []
 for fpath in most_recent_x_days:
@@ -47,6 +46,7 @@ for fpath in most_recent_x_days:
     else:
         full_dfs.append(df)
 
+### for grand plot
 grouped_df_recent = pd.concat(grouped_dfs, axis = 0, ignore_index = True).sort_values(by = 'date', ascending = True).reset_index(drop = True)
 grouped_df_recent['date_str'] = grouped_df_recent['date'].apply(lambda x: get_date_str(x))
 
@@ -101,6 +101,63 @@ def show_grand_plot():
     )
     return fig
 
+### for weekday plot
+all_grouped_dfs = []
+for fpath in csv_files:
+    df = pd.read_csv(directory_path + fpath)
+
+    # grouped dfs
+    if "grouped" in fpath:
+        all_grouped_dfs.append(df)
+
+grouped_dfs_all = pd.concat(all_grouped_dfs, axis = 0, ignore_index = True).sort_values(by = 'date', ascending = True).reset_index(drop = True)
+grouped_dfs_all['date_str'] = grouped_dfs_all['date'].apply(lambda x: get_date_str(x))
+
+# Convert 'date' to datetime type
+grouped_dfs_all['date'] = pd.to_datetime(grouped_dfs_all['date'])
+
+# Extract weekday names
+grouped_dfs_all['weekday'] = grouped_dfs_all['date'].dt.day_name()
+
+# Order the weekdays from Monday to Sunday
+ordered_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+grouped_dfs_all['weekday'] = pd.Categorical(grouped_dfs_all['weekday'], categories=ordered_days, ordered=True)
+
+# Group by 'weekday' and 'source', then calculate the mean of 'compound'
+all_aggs_grouped = grouped_dfs_all.groupby(['weekday', 'source']).mean().reset_index()
+
+def weekday_plot():
+    fig = px.bar(all_aggs_grouped, 
+                x='weekday', 
+                y='compound', 
+                color='source',
+                #  title='Aggregated Sentiment by Source per Weekday',
+                labels={'compound': 'Sentiment Valence', 'weekday': 'Weekday'},
+                category_orders={"weekday": ordered_days},
+                barmode = 'group')
+
+    fig.update_layout(
+            title = {
+                'text': "Aggregated Sentiment by Source per Weekday",
+                'y': 0.99, # height of title on plot
+                'x': 0.5,
+                'xanchor': 'center',
+                'yanchor': 'top',
+                'font': {'size': 20}
+                },
+            # xaxis_title="Date",
+            xaxis_title_font_size=16,
+            xaxis_tickfont_size=14,
+            # yaxis_title="Sentiment Valence",
+            yaxis_title_font_size=16,
+            yaxis_tickfont_size=14,
+            bargap=0.3  # Adjust this value to make bars more narrow or wide
+
+    )
+
+    return fig
+    
+
 #######################################################################################################################################
 
 ### Show Plot
@@ -126,17 +183,33 @@ st.write(f"*The number of headlines collected from each source today is as follo
 for source, count in zip(sources, counts):
     st.markdown(f"*- {source}: {count}*")
 
-### Chart Explanation
-chart_explained_1 = """
+### Chart #1 Explanation
+chart1_explained_1 = """
 Sentiment valence, a scale between -1 and 1, measures the emotional tone of a text. A score of -1 represents extreme negativity, while 1 indicates extreme positivity. Values closer to 0 signify neutrality. This scale helps quantify sentiments in language, which is useful in Natural Language Processing tasks like sentiment analysis, as used here on the headlines from each of the news sources.
 """
-chart_explained_2 = """
+chart1_explained_2 = """
 This chart is intended to be read from the left side to the right side. Check the legend in the upper right-hand corner of the chart to see which news organization corresponds to which line (look for the same colour), then see how the line changes vertically as it moves from the left to the right. From left to right, if the line goes up, it means the headlines of that particular day got more positive (on average) than the previous day. Conversely, if the line goes down from left to right, the headlines got more negative (on average) from the previous day. By comparing one line's behaviour to another, we can get a general idea of how negative or positive one news outlet's headlines are compared to another.
 """
 
-st.write("**Chart Explained:**")
-st.write(chart_explained_1.strip())
-st.write(chart_explained_2.strip())
+st.write("**Chart #1 Explained:**")
+st.write(chart1_explained_1.strip())
+st.write(chart1_explained_2.strip())
+
+### Show day-by-day plot
+updated_grand_plot = weekday_plot()
+st.plotly_chart(weekday_plot)
+
+### Chart #1 Explanation
+chart2_explained_1 = """
+While the first chart shows how headline sentiment is changing over time, this chart shows the average sentiment according to each day of the week. This aims to answer questions like 'is the news more positive on the weekend?', or 'is news more negative on Monday?'."
+"""
+# chart2_explained_2 = """
+# This chart is intended to be read from the left side to the right side. Check the legend in the upper right-hand corner of the chart to see which news organization corresponds to which line (look for the same colour), then see how the line changes vertically as it moves from the left to the right. From left to right, if the line goes up, it means the headlines of that particular day got more positive (on average) than the previous day. Conversely, if the line goes down from left to right, the headlines got more negative (on average) from the previous day. By comparing one line's behaviour to another, we can get a general idea of how negative or positive one news outlet's headlines are compared to another.
+# """
+
+st.write("**Chart #2 Explained:**")
+st.write(chart2_explained_1.strip())
+# st.write(chart2_explained_2.strip())
 
 st.divider()
 
