@@ -123,7 +123,6 @@ grouped_dfs_all['weekday'] = grouped_dfs_all['date'].dt.day_name()
 ordered_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
 # Group by 'weekday' and 'source', then calculate the mean of 'compound'
-st.dataframe(data = grouped_dfs_all)
 grouped_dfs_all['weekday'] = pd.Categorical(grouped_dfs_all['weekday'], categories=ordered_days, ordered=True)
 
 def show_weekday_plot():
@@ -202,7 +201,7 @@ st.plotly_chart(weekday_plot)
 
 ### Chart #1 Explanation
 chart2_explained_1 = """
-While the first chart shows how headline sentiment is changing over time, this chart shows the average sentiment according to each day of the week, of all data collected so far. This aims to answer questions like 'is the news more positive on the weekend?', or 'is news more negative on Monday?'."
+While the first chart shows how headline sentiment is changing over time, this chart shows the average sentiment according to each day of the week, of all data collected so far. This aims to answer questions like 'is the news more positive on the weekend?', or 'is news more negative on Monday?'. To read this chart, look at how far down (vertically) the sets of bars go. The lower a bar reaches, the more negative that source is on average, for that day. The shorter the bar is, the more positive that source is (on average) on that day."
 """
 ## display counts of headlines from each source today
 # weekdays = grouped_dfs_all['weekday'].unique().tolist() # list of all unique sources
