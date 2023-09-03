@@ -124,10 +124,7 @@ ordered_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturda
 
 # Group by 'weekday' and 'source', then calculate the mean of 'compound'
 st.dataframe(data = grouped_dfs_all)
-# grouped_dfs_all = grouped_dfs_all.groupby(['weekday', 'source']).mean()#.reset_index(drop = True).drop(columns = ['negative', 'positive','neutral', 'date', 'chosen_label'])
 grouped_dfs_all['weekday'] = pd.Categorical(grouped_dfs_all['weekday'], categories=ordered_days, ordered=True)
-# all_aggs_grouped = grouped_dfs_all.groupby(['weekday', 'source']).mean().reset_index(drop = True).drop(columns = ['chosen_label'])
-# st.dataframe(data = all_aggs_grouped)
 
 def show_weekday_plot():
     # fig = px.bar(all_aggs_grouped, 
@@ -205,15 +202,17 @@ st.plotly_chart(weekday_plot)
 
 ### Chart #1 Explanation
 chart2_explained_1 = """
-While the first chart shows how headline sentiment is changing over time, this chart shows the average sentiment according to each day of the week. This aims to answer questions like 'is the news more positive on the weekend?', or 'is news more negative on Monday?'."
+While the first chart shows how headline sentiment is changing over time, this chart shows the average sentiment according to each day of the week, of all data collected so far. This aims to answer questions like 'is the news more positive on the weekend?', or 'is news more negative on Monday?'."
 """
-# chart2_explained_2 = """
-# This chart is intended to be read from the left side to the right side. Check the legend in the upper right-hand corner of the chart to see which news organization corresponds to which line (look for the same colour), then see how the line changes vertically as it moves from the left to the right. From left to right, if the line goes up, it means the headlines of that particular day got more positive (on average) than the previous day. Conversely, if the line goes down from left to right, the headlines got more negative (on average) from the previous day. By comparing one line's behaviour to another, we can get a general idea of how negative or positive one news outlet's headlines are compared to another.
-# """
+## display counts of headlines from each source today
+weekdays = grouped_dfs_all['weekday'].unique().tolist() # list of all unique sources
+wd_counts = [len(grouped_dfs_all[grouped_dfs_all['weekday'] == source]) for source in sources] # list of counts of each source
 
 st.write("**Chart #2 Explained:**")
 st.write(chart2_explained_1.strip())
-# st.write(chart2_explained_2.strip())
+st.write(f"*The number of days contributing to each bar above is as follows:*")
+for wday, count in zip(weekdays, wd_counts):
+    st.markdown(f"*- {wday}: {count}*")
 
 st.divider()
 
