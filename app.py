@@ -121,15 +121,15 @@ grouped_dfs_all['weekday'] = grouped_dfs_all['date'].dt.day_name()
 
 # Order the weekdays from Monday to Sunday
 ordered_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-grouped_dfs_all['weekday'] = pd.Categorical(grouped_dfs_all['weekday'], categories=ordered_days, ordered=True)
 
 # Group by 'weekday' and 'source', then calculate the mean of 'compound'
 st.dataframe(data = grouped_dfs_all)
-# all_aggs_grouped = grouped_dfs_all.groupby(['weekday', 'source']).mean()#.reset_index(drop = True).drop(columns = ['negative', 'positive','neutral', 'date', 'chosen_label'])
+grouped_dfs_all = grouped_dfs_all.groupby(['weekday', 'source']).mean()#.reset_index(drop = True).drop(columns = ['negative', 'positive','neutral', 'date', 'chosen_label'])
+grouped_dfs_all['weekday'] = pd.Categorical(grouped_dfs_all['weekday'], categories=ordered_days, ordered=True)
 # all_aggs_grouped = grouped_dfs_all.groupby(['weekday', 'source']).mean().reset_index(drop = True).drop(columns = ['chosen_label'])
 # st.dataframe(data = all_aggs_grouped)
 
-def weekday_plot():
+def show_weekday_plot():
     # fig = px.bar(all_aggs_grouped, 
     fig = px.bar(grouped_dfs_all, 
                 x='weekday', 
@@ -200,7 +200,7 @@ st.write(chart1_explained_1.strip())
 st.write(chart1_explained_2.strip())
 
 ### Show day-by-day plot
-updated_grand_plot = weekday_plot()
+weekday_plot = show_weekday_plot()
 st.plotly_chart(weekday_plot)
 
 ### Chart #1 Explanation
