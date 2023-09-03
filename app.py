@@ -124,7 +124,7 @@ ordered_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturda
 
 # Group by 'weekday' and 'source', then calculate the mean of 'compound'
 st.dataframe(data = grouped_dfs_all)
-grouped_dfs_all = grouped_dfs_all.groupby(['weekday', 'source']).mean()#.reset_index(drop = True).drop(columns = ['negative', 'positive','neutral', 'date', 'chosen_label'])
+# grouped_dfs_all = grouped_dfs_all.groupby(['weekday', 'source']).mean()#.reset_index(drop = True).drop(columns = ['negative', 'positive','neutral', 'date', 'chosen_label'])
 grouped_dfs_all['weekday'] = pd.Categorical(grouped_dfs_all['weekday'], categories=ordered_days, ordered=True)
 # all_aggs_grouped = grouped_dfs_all.groupby(['weekday', 'source']).mean().reset_index(drop = True).drop(columns = ['chosen_label'])
 # st.dataframe(data = all_aggs_grouped)
