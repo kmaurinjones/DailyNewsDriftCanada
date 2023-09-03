@@ -213,7 +213,7 @@ st.write("**Chart #2 Explained:**")
 st.write(chart2_explained_1.strip())
 st.write(f"*The number of days contributing to each bar above is as follows:*")
 for wday, count in zip(weekdays, wd_counts):
-    st.markdown(f"*- {wday}: {count/num_sources}*") # /num_sources because having multiple sources multiplies this number. 3 sources == 3x the actually number of days (3 points for each day)
+    st.markdown(f"*- {wday}: {int(count/num_sources)}*") # /num_sources because having multiple sources multiplies this number. 3 sources == 3x the actually number of days (3 points for each day)
 
 st.divider()
 
