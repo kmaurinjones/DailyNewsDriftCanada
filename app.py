@@ -205,14 +205,15 @@ chart2_explained_1 = """
 While the first chart shows how headline sentiment is changing over time, this chart shows the average sentiment according to each day of the week, of all data collected so far. This aims to answer questions like 'is the news more positive on the weekend?', or 'is news more negative on Monday?'."
 """
 ## display counts of headlines from each source today
-weekdays = grouped_dfs_all['weekday'].unique().tolist() # list of all unique sources
-wd_counts = [len(grouped_dfs_all[grouped_dfs_all['weekday'] == wday]) for wday in weekdays] # list of counts of each source
+# weekdays = grouped_dfs_all['weekday'].unique().tolist() # list of all unique sources
+# ordered_days # this is the list from above that has each weekday in it
+wd_counts = [len(grouped_dfs_all[grouped_dfs_all['weekday'] == wday]) for wday in ordered_days] # list of counts of each source
 num_sources = len(grouped_dfs_all['source'].unique())
 
 st.write("**Chart #2 Explained:**")
 st.write(chart2_explained_1.strip())
 st.write(f"*The number of days contributing to each bar above is as follows:*")
-for wday, count in zip(weekdays, wd_counts):
+for wday, count in zip(ordered_days, wd_counts):
     st.markdown(f"*- {wday}: {int(count/num_sources)}*") # /num_sources because having multiple sources multiplies this number. 3 sources == 3x the actually number of days (3 points for each day)
 
 st.divider()
