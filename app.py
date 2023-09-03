@@ -124,12 +124,14 @@ grouped_dfs_all = grouped_dfs_all.groupby(['weekday', 'source']).mean(numeric_on
 # Order the weekdays from Monday to Sunday
 ordered_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
+color_mapping = None # have to default this to None before func definition
 def show_weekday_plot():
     # fig = px.bar(all_aggs_grouped, 
     fig = px.bar(grouped_dfs_all, 
                 x='weekday', 
                 y='compound', 
                 color='source',
+                color_discrete_map=color_mapping,  # Add this line to enforce the color scheme
                 #  title='Aggregated Sentiment by Source per Weekday',
                 labels={'compound': 'Sentiment Valence', 'weekday': 'Weekday'},
                 category_orders={"weekday": ordered_days},
@@ -168,7 +170,7 @@ color_mapping = {}
 for trace in updated_grand_plot.data:
     color_mapping[trace.name] = trace.line.color
 
-st.write(color_mapping)
+# st.write(color_mapping)
 
 # logs_path = "/Users/kmaurinjones/Desktop/ds/github_repos/DailyNewsDriftCanada/logs.txt"
 logs_path = "logs.txt"
