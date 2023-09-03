@@ -138,7 +138,7 @@ def show_weekday_plot():
 
     fig.update_layout(
             title = {
-                'text': "Aggregated Sentiment by Source per Weekday",
+                'text': "Aggregated Sentiment by Source & Weekday",
                 'y': 0.99, # height of title on plot
                 'x': 0.5,
                 'xanchor': 'center',
