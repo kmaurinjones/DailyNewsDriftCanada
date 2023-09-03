@@ -116,14 +116,14 @@ grouped_dfs_all['date_str'] = grouped_dfs_all['date'].apply(lambda x: get_date_s
 # Convert 'date' to datetime type
 grouped_dfs_all['date'] = pd.to_datetime(grouped_dfs_all['date'])
 
+# Order the weekdays from Monday to Sunday
+ordered_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
 # Extract weekday names
 grouped_dfs_all['weekday'] = grouped_dfs_all['date'].dt.day_name()
 grouped_dfs_all = grouped_dfs_all.drop(columns = [col for col in grouped_dfs_all.columns if col not in ['compound', 'weekday', 'source']])
 wd_counts = [len(grouped_dfs_all[grouped_dfs_all['weekday'] == wday]) for wday in ordered_days] # need to get this now before overwriting the variable in the next line
 grouped_dfs_all = grouped_dfs_all.groupby(['weekday', 'source']).mean(numeric_only = True).reset_index()
-
-# Order the weekdays from Monday to Sunday
-ordered_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
 color_mapping = None # have to default this to None before func definition
 def show_weekday_plot():
