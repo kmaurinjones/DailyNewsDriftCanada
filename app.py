@@ -117,7 +117,7 @@ grouped_dfs_all['date_str'] = grouped_dfs_all['date'].apply(lambda x: get_date_s
 grouped_dfs_all['date'] = pd.to_datetime(grouped_dfs_all['date'])
 
 # Extract weekday names
-grouped_dfs_all['weekday'] = grouped_dfs_all['date'].dt.day_name()
+grouped_dfs_all['weekday'] = grouped_dfs_all['date'].dt.day_name().groupby(columns = ['weekday',  'compound', 'source'])
 
 # Order the weekdays from Monday to Sunday
 ordered_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
