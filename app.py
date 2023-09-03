@@ -168,6 +168,8 @@ color_mapping = {}
 for trace in updated_grand_plot.data:
     color_mapping[trace.name] = trace.line.color
 
+st.write(color_mapping)
+
 # logs_path = "/Users/kmaurinjones/Desktop/ds/github_repos/DailyNewsDriftCanada/logs.txt"
 logs_path = "logs.txt"
 
