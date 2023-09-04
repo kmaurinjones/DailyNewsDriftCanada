@@ -216,9 +216,6 @@ chart2_explained_2 = """
 To read this chart, look at how far down (vertically) the sets of bars go. The lower a bar reaches, the more negative that source is, on average, for that day. The shorter the bar is, the less negative that source is, on average, on that day.
 """
 ## display counts of headlines from each source today
-# weekdays = grouped_dfs_all['weekday'].unique().tolist() # list of all unique sources
-# ordered_days # this is the list from above that has each weekday in it
-# wd_counts = [len(grouped_dfs_all[grouped_dfs_all['weekday'] == wday]) for wday in ordered_days] # list of counts of each source
 num_sources = len(grouped_dfs_all['source'].unique())
 
 st.write("**Chart #2 Explained:**")
