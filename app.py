@@ -154,7 +154,6 @@ def show_weekday_plot():
             yaxis_title_font_size=16,
             yaxis_tickfont_size=14,
             bargap=0.3  # Adjust this value to make bars more narrow or wide
-
     )
 
     return fig
