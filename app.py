@@ -123,7 +123,7 @@ ordered_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturda
 grouped_dfs_all['weekday'] = grouped_dfs_all['date'].dt.day_name()
 grouped_dfs_all = grouped_dfs_all.drop(columns = [col for col in grouped_dfs_all.columns if col not in ['compound', 'weekday', 'source']])
 wd_counts = [len(grouped_dfs_all[grouped_dfs_all['weekday'] == wday]) for wday in ordered_days] # need to get this now before overwriting the variable in the next line
-grouped_dfs_all = grouped_dfs_all.groupby(['weekday', 'source']).mean(numeric_only = True).reset_index()
+grouped_dfs_all = grouped_dfs_all.groupby(['weekday', 'source']).mean().reset_index()
 
 color_mapping = None # have to default this to None before func definition
 def show_weekday_plot():
@@ -218,7 +218,7 @@ To read this chart, look at how far down (vertically) the sets of bars go. The l
 ## display counts of headlines from each source today
 # weekdays = grouped_dfs_all['weekday'].unique().tolist() # list of all unique sources
 # ordered_days # this is the list from above that has each weekday in it
-wd_counts = [len(grouped_dfs_all[grouped_dfs_all['weekday'] == wday]) for wday in ordered_days] # list of counts of each source
+# wd_counts = [len(grouped_dfs_all[grouped_dfs_all['weekday'] == wday]) for wday in ordered_days] # list of counts of each source
 num_sources = len(grouped_dfs_all['source'].unique())
 
 st.write("**Chart #2 Explained:**")
