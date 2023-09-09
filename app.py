@@ -188,7 +188,7 @@ today_df = full_df_recent[full_df_recent['date'] == today_date]
 sources = today_df['source'].unique().tolist() # list of all unique sources
 counts = [len(today_df[today_df['source'] == source]) for source in sources] # list of counts of each source
 
-st.write(f"*The number of headlines collected from each source today is as follows:*")
+st.write(f"*The number of headlines collected from each source today is:*")
 for source, count in zip(sources, counts):
     st.markdown(f"*- {source}: {count}*")
 
@@ -196,7 +196,7 @@ for source, count in zip(sources, counts):
 sources = grouped_dfs_all['source'].unique().tolist() # list of all unique sources
 averages = [np.mean(grouped_dfs_all[grouped_dfs_all['source'] == source]['compound']) for source in sources] # list of all time averages of each source
 
-st.write(f"*The all-time average sentiment of headlines collected from each source is as follows (rounded to 4 decimal places):*")
+st.write(f"*The all-time average sentiment of headlines collected from each source (rounded to 4 decimal places) is:*")
 for source, avg in zip(sources, averages):
     st.markdown(f"*- {source}: {round(avg, 4)}*")
 
