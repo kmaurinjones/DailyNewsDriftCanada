@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from general_funcs import *
 from plot import *
 import plotly.express as px
+import numpy as np
 
 st.title("**📰🍁 DailyNewsDriftCanada 📈📉**")
 
@@ -190,6 +191,14 @@ counts = [len(today_df[today_df['source'] == source]) for source in sources] # l
 st.write(f"*The number of headlines collected from each source today is as follows:*")
 for source, count in zip(sources, counts):
     st.markdown(f"*- {source}: {count}*")
+
+## display average sentiments of headlines from each source over all recorded data
+sources = grouped_dfs_all['source'].unique().tolist() # list of all unique sources
+averages = [np.mean(grouped_dfs_all[grouped_dfs_all['source'] == source]['compound']) for source in sources] # list of all time averages of each source
+
+st.write(f"*The all-time average sentiment of headlines collected from each source is as follows (rounded to 4 decimal places):*")
+for source, avg in zip(sources, averages):
+    st.markdown(f"*- {source}: {round(avg, 4)}*")
 
 ### Chart #1 Explanation
 chart1_explained_1 = """
