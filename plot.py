@@ -11,8 +11,9 @@ def find_csv_files(directory_path):
 # Example usage
 directory_path = 'data/'  # current directory
 csv_files = find_csv_files(directory_path)
-days_to_display = 60
-most_recent_x_days = sorted(csv_files)[::-1][:days_to_display*2] # twice as many because there are two files for each day
+# days_to_display = 60
+# most_recent_x_days = sorted(csv_files)[::-1][:days_to_display*2] # twice as many because there are two files for each day
+most_recent_x_days = sorted(csv_files)[::-1]
 
 ### Making grand ground and full dfs of 10 most recent days
 
